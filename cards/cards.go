@@ -13,7 +13,7 @@ func ReturnfavouriteCards() []int {
 	return []int{2, 6, 9}
 }
 
-/*func outOfBounds(slice []int, index int) bool {
+/*func isChosenCardOutOfBounds(slice []int, index int) bool {
 	if index < 0 || index >= len(slice) {
 
 		return true

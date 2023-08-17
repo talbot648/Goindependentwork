@@ -2,27 +2,57 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
-//PART 2
-//Instead of a slice, the items have been provided as a single string
-//Create a function that
-//1. accepts the string as a parameter
-//2. calculates the total
-//3. returns the total as TWO integers - one for pounds and one for pence
-
-//Note that the cost of each item is:
-//Banana 50p
-//Cat Food 90p
-//Bread 70p
-//Avocado £1.50
-
-//https://gobyexample.com/string-functions
-
-//the total should be printed to the console
-
 func main() {
+
 	basket := "Banana, Cat Food, Bread, Avocado"
 
-	fmt.Println("Total:", basket)
+	Items := RemoveSpacesFromItems(basket)
+
+	totalPrice := totalPriceForItemsInBasket(Items)
+	totalPriceInPounds, totalPriceInPence := convertTotalPriceToPoundsAndPence(totalPrice)
+
+	fmt.Println("The total Price of the items in your basket is", totalPriceInPounds, "Pounds and", totalPriceInPence, "Pence")
+}
+
+func RemoveSpacesFromItems(basket string) []string {
+
+	Items := strings.Split(basket, ",")
+
+	for item := range Items {
+		Items[item] = strings.TrimSpace(Items[item])
+	}
+
+	return Items
+}
+
+func totalPriceForItemsInBasket(Items []string) int {
+
+	basketPrices := map[string]int{
+		"Banana":   50,
+		"Cat Food": 90,
+		"Bread":    70,
+		"Avocado":  150,
+	}
+
+	totalPrice := 0
+
+	for _, item := range Items {
+		if price, found := basketPrices[item]; found {
+			totalPrice += price
+		}
+	}
+	return totalPrice
+}
+
+func convertTotalPriceToPoundsAndPence(totalPrice int) (int, int) {
+
+	totalPriceInPounds := totalPrice / 100
+
+	totalPriceInPence := totalPrice - totalPriceInPounds*100
+
+	return totalPriceInPounds, totalPriceInPence
+
 }

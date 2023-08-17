@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	basket := []string{"Banana", "Cat Food", "Bread", "Avocado"}
+	basket := []string{"Banana", "Cat Food", "Bread", "Avocado", "Bread"}
 
 	totalPrice := totalPriceForItemsInBasket(basket)
 
