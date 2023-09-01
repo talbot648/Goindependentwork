@@ -55,6 +55,7 @@ func main() {
 		[]string{"Yacht", "150,000.99"},
 	}*/
 	RemoveSpacesFromBasket(basketWithSpaces)
+	fmt.Println(basket)
 	fmt.Println("The total Price of the items in your basket is", getTotal(basket))
 	fmt.Println("The total Price of the items in your basket is", getTotal(basketWithSpaces))
 	//fmt.Println("The total Price of the items in your basket is", getTotal(invalidbasket))
