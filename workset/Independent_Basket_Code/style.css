@@ -1,0 +1,19 @@
+
+	
+	.buttons {
+        position: relative;
+        clear: both;
+      
+      }
+      
+      button {
+        float: center;
+          margin-top: 5px;
+      }
+      
+      button:hover {
+          background-color: black;
+          color: white;
+        opacity: 0.5;
+        transition: opacity 200ms ease-out;
+      }
