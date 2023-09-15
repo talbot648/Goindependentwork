@@ -41,8 +41,8 @@ return basket
 const removeLastItemFromBasket = document.getElementById("removeLastItem");
 
 removeLastItemFromBasket.addEventListener("click", () => {
-basket.length = basket.length - 1
-console.log("Removed last item from Basket");
+let removedItem = basket.pop();
+console.log("Removed the last item ", removedItem ,"from Basket");
 return basket
 });
 
