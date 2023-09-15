@@ -79,7 +79,7 @@ totalPriceForItemsInBasket.addEventListener("click",function() {
 
 totalPrice += getPriceForItem(item)
 } 
-console.log("Total:", totalPrice, "Pence")
+alert("Total Price: " + totalPrice + " Pence")
 });
 
 
