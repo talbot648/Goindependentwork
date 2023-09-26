@@ -47,6 +47,16 @@ return basket
 });
 
 
+const userTotal = document.getElementById("user_score");
+let userScore = 0
+
+userTotal.addEventListener("click", () => {
+alert(userScore + " Pence")	
+
+
+});
+
+
 const getPriceForItem = (item) =>{
  if (item == "Banana"){
 	return 50;
@@ -72,7 +82,7 @@ const getPriceForItem = (item) =>{
 
 
 const totalPriceForItemsInBasket = document.getElementById("total");
-totalPriceForItemsInBasket.addEventListener("click",function() {
+totalPriceForItemsInBasket.addEventListener("click", () => {
  let totalPrice = 0;
  
  for(let item of basket) {
