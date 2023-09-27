@@ -1,8 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"math/rand"
+	"os"
+	"strconv"
 )
 
 // Plan: ask user a question
@@ -22,7 +25,7 @@ func main() {
 		question, indexNumber := getQuestion(questions)
 		fmt.Println("Question", qNum, question)
 
-		userGuess := getUserGuess()
+		userGuess := getUserGuess(question)
 
 		result := checkAnswer(userGuess, indexNumber, answers)
 		fmt.Println(result)
@@ -46,11 +49,13 @@ func getQuestion(questions []string) (string, int) {
 	return question, indexNumber
 }
 
-func getUserGuess() int {
-	var userGuess int
-	fmt.Print("Your answer: ")
-	fmt.Scanln(&userGuess)
+func getUserGuess(question string) int {
+
+	userGuessString := askUser("Your Answer:")
+	userGuess, _ := strconv.Atoi(userGuessString)
+
 	return userGuess
+
 }
 
 func checkAnswer(userGuess, indexNumber int, answers []int) string {
@@ -73,4 +78,19 @@ func removeQuestionAndAnswer(questions []string, answers []int, indexNumber int)
 	questions = append(questions[:indexNumber], questions[indexNumber+1:]...)
 	answers = append(answers[:indexNumber], answers[indexNumber+1:]...)
 	return questions, answers
+}
+
+func askUser(prompt string) string {
+	fmt.Println(prompt)
+	fmt.Print("> ")
+
+	scanner := bufio.NewScanner(os.Stdin)
+	scanner.Scan()
+
+	err := scanner.Err()
+	if err != nil {
+		panic(err)
+	}
+
+	return scanner.Text()
 }
