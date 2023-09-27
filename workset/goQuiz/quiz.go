@@ -15,8 +15,8 @@ import (
 // store score
 
 func main() {
-	questions := []string{"What is 1+1?", "What is 2+2?", "What is 3+3", "What is 7x8", "What is 9X7?", "what number does 10001011 represent?"}
-	answers := []int{2, 4, 6, 56, 63, 139}
+	questions := []string{"What is 1+1?", "What is 2+2?", "What is 3+3", "What is 7x8", "What is 9x7?", "What is 66-7?"}
+	answers := []int{2, 4, 6, 56, 63, 59}
 
 	total := 0
 	qNum := 1
