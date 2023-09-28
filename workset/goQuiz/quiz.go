@@ -19,22 +19,22 @@ func main() {
 	answers := []int{2, 4, 6, 56, 63, 59}
 
 	total := 0
-	qNum := 1
+	questionNumber := 1
 
 	for i := 1; i <= len(questions); {
 		question, indexNumber := getQuestion(questions)
-		fmt.Println("Question", qNum, question)
+		fmt.Println("Question", questionNumber, question)
 
 		userGuess := getUserGuess(question)
 
 		result := checkAnswer(userGuess, indexNumber, answers)
 		fmt.Println(result)
 
-		total += changeScore(total, result)
+		total += addScore(total, result)
 		fmt.Println("Your score is", total)
 
 		questions, answers = removeQuestionAndAnswer(questions, answers, indexNumber)
-		qNum++
+		questionNumber++
 	}
 	fmt.Println("That is the end of the quiz! Your score is", total)
 
@@ -66,7 +66,7 @@ func checkAnswer(userGuess, indexNumber int, answers []int) string {
 	return "Incorrect"
 }
 
-func changeScore(total int, result string) int {
+func addScore(total int, result string) int {
 	if result == "Correct" {
 		return 100
 	} else {
