@@ -36,6 +36,15 @@ func main() {
 				{text: "5", isCorrect: false},
 			},
 		},
+		{
+			question: "What is 7 X 8?",
+			options: []Answer{
+				{text: "49", isCorrect: false},
+				{text: "56", isCorrect: true},
+				{text: "64", isCorrect: false},
+				{text: "63", isCorrect: false},
+			},
+		},
 	}
 
 	total := 0
@@ -52,7 +61,7 @@ func main() {
 
 		userGuess := getUserGuess(question)
 
-		result := checkAnswer(userGuess, question)
+		result := checkAnswer(userGuess)
 		fmt.Println(result)
 
 		total += addScore(result)
@@ -88,7 +97,7 @@ func getUserGuess(question QuestionAnswers) Answer {
 	}
 }
 
-func checkAnswer(userGuess Answer, question QuestionAnswers) string {
+func checkAnswer(userGuess Answer) string {
 	if userGuess.isCorrect {
 		return "Correct"
 
