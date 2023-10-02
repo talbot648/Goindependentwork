@@ -16,29 +16,26 @@ type car struct {
 }
 
 func main() {
-	car1 := car{"BMW", 2020, 180, "red", 22500}
-	car2 := car{"VW", 2008, 135, "Black", 2500}
-	car3 := car{"Mercedes", 2015, 165, "White", 12000}
-	cars := []car{car1, car2, car3}
-
+	cars := initialiseCars()
 	userRequest := getUserRequest()
 
 	if userRequest == "top speed" {
-		fastestCar := fastestCar(cars)
-
-		fmt.Println(fastestCar.Brand, fastestCar.Year, "Is the fastest car with a speed of", fastestCar.topSpeed, "MPH")
+		printFastestCar(cars)
 	}
 	if userRequest == "newest car" {
-		newestCar := newestCar(cars)
-
-		fmt.Println(newestCar.Brand, newestCar.Year, "Is the newest car available.")
+		printNewestCar(cars)
 	}
 	if userRequest == "price" {
-		cheapestCar := cheapestCar(cars)
-
-		fmt.Println(cheapestCar.Brand, cheapestCar.Year, "Is the cheapest car available costing only", cheapestCar.price, "Pounds")
+		printCheapestCar(cars)
 	}
 
+}
+
+func initialiseCars() []car {
+	car1 := car{"BMW", 2020, 180, "red", 22500}
+	car2 := car{"VW", 2008, 135, "Black", 2500}
+	car3 := car{"Mercedes", 2015, 165, "White", 12000}
+	return []car{car1, car2, car3}
 }
 
 func getUserRequest() string {
@@ -93,6 +90,21 @@ func cheapestCar(cars []car) car {
 
 	}
 	return cheapestCar
+}
+
+func printFastestCar(cars []car) {
+	fastestCar := fastestCar(cars)
+	fmt.Println(fastestCar.Brand, fastestCar.Year, "Is the fastest car with a speed of", fastestCar.topSpeed, "MPH")
+}
+
+func printNewestCar(cars []car) {
+	newestCar := newestCar(cars)
+	fmt.Println(newestCar.Brand, newestCar.Year, "Is the newest car available.")
+}
+
+func printCheapestCar(cars []car) {
+	cheapestCar := cheapestCar(cars)
+	fmt.Println(cheapestCar.Brand, cheapestCar.Year, "Is the cheapest car available costing only", cheapestCar.price, "Pounds")
 }
 
 func askUser(prompt string) string {
