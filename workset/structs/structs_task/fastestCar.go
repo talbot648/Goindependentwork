@@ -25,27 +25,30 @@ func main() {
 	if userRequest == "newest car" {
 		printNewestCar(cars)
 	}
-	if userRequest == "price" {
+	if userRequest == "cheapest price" {
 		printCheapestCar(cars)
 	}
 
 }
 
 func initialiseCars() []car {
-	car1 := car{"BMW", 2020, 180, "red", 22500}
+	car1 := car{"BMW", 2020, 180, "Red", 22500}
 	car2 := car{"VW", 2008, 135, "Black", 2500}
 	car3 := car{"Mercedes", 2015, 165, "White", 12000}
-	return []car{car1, car2, car3}
+	car4 := car{"Citroen", 2006, 80, "Grey", 1000}
+	car5 := car{"Honda", 2011, 95, "White", 2350}
+
+	return []car{car1, car2, car3, car4, car5}
 }
 
 func getUserRequest() string {
 
-	options := []string{"top speed", "newest car", "price"}
+	options := []string{"top speed", "newest car", "cheapest price"}
 
 	for {
 
 		fmt.Println("Your options are", options)
-		userRequest := strings.ToLower(askUser("What is the main aspect you are loking for in a car?"))
+		userRequest := strings.ToLower(askUser("What are you looking for most in a car?"))
 
 		for option := range options {
 
@@ -59,9 +62,11 @@ func getUserRequest() string {
 	}
 }
 
-func fastestCar(cars []car) car {
+func getFastestCar(cars []car) car {
 	var fastestCar car
+
 	for _, car := range cars {
+
 		if car.topSpeed >= fastestCar.topSpeed {
 			fastestCar = car
 		}
@@ -70,9 +75,11 @@ func fastestCar(cars []car) car {
 	return fastestCar
 }
 
-func newestCar(cars []car) car {
+func getNewestCar(cars []car) car {
 	var newestCar car
+
 	for _, car := range cars {
+
 		if car.Year >= newestCar.Year {
 			newestCar = car
 		}
@@ -81,9 +88,11 @@ func newestCar(cars []car) car {
 	return newestCar
 }
 
-func cheapestCar(cars []car) car {
+func getCheapestCar(cars []car) car {
 	cheapestCar := cars[0]
+
 	for _, car := range cars {
+
 		if car.price <= cheapestCar.price {
 			cheapestCar = car
 		}
@@ -93,17 +102,17 @@ func cheapestCar(cars []car) car {
 }
 
 func printFastestCar(cars []car) {
-	fastestCar := fastestCar(cars)
-	fmt.Println(fastestCar.Brand, fastestCar.Year, "Is the fastest car with a speed of", fastestCar.topSpeed, "MPH")
+	fastestCar := getFastestCar(cars)
+	fmt.Println(fastestCar.Brand, fastestCar.Year, "Is the fastest car available with a speed of", fastestCar.topSpeed, "MPH")
 }
 
 func printNewestCar(cars []car) {
-	newestCar := newestCar(cars)
+	newestCar := getNewestCar(cars)
 	fmt.Println(newestCar.Brand, newestCar.Year, "Is the newest car available.")
 }
 
 func printCheapestCar(cars []car) {
-	cheapestCar := cheapestCar(cars)
+	cheapestCar := getCheapestCar(cars)
 	fmt.Println(cheapestCar.Brand, cheapestCar.Year, "Is the cheapest car available costing only", cheapestCar.price, "Pounds")
 }
 
