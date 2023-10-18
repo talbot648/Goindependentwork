@@ -8,26 +8,19 @@ import (
 	"strings"
 )
 
-//Hangman tasks
-//Choose a random word(from a given list or a csv file)
-//split each letter into slices
-//create a user guess input
-//check if letter is in chosen word
-
 func main() {
 
 	chosenWord := getWord()
-	letterArray := strings.Split(chosenWord, "")
+	chosenWordSplit := strings.Split(chosenWord, "")
 
-	fmt.Print("Your word is ")
 	hiddenWord := printLettersInWord(chosenWord)
-	fmt.Println(hiddenWord)
+	fmt.Println("Your word is", hiddenWord)
 
-	playGame(letterArray, hiddenWord, chosenWord)
+	playGame(chosenWordSplit, hiddenWord, chosenWord)
 
 }
 
-func playGame(letterArray []string, hiddenWord []string, chosenWord string) {
+func playGame(chosenWordSplit []string, hiddenWord []string, chosenWord string) {
 	found := false
 	remainingGuesses := 10
 	for remainingGuesses >= 1 {
@@ -37,7 +30,7 @@ func playGame(letterArray []string, hiddenWord []string, chosenWord string) {
 		if guessWordOrLetter == "1" {
 
 			userLetterGuess := askUser("Guess a letter in the word")
-			isCorrect, hiddenWord := checkUserLetterGuess(letterArray, userLetterGuess, hiddenWord)
+			isCorrect, hiddenWord := checkUserLetterGuess(chosenWordSplit, userLetterGuess, hiddenWord)
 			found = checkHiddenWord(hiddenWord, chosenWord, found)
 
 			if found {
@@ -62,14 +55,10 @@ func playGame(letterArray []string, hiddenWord []string, chosenWord string) {
 		} else {
 			fmt.Println("Enter a valid input")
 		}
-		if remainingGuesses == 0 && !found {
-			fmt.Println("You lost! The word was", chosenWord)
-		}
-		if remainingGuesses == 0 && found {
-			fmt.Println("Congrats! You Win!")
+		if remainingGuesses == 0 {
+			handleGameResult(remainingGuesses, chosenWord, found)
 		}
 	}
-
 }
 
 func getWord() string {
@@ -89,9 +78,9 @@ func printLettersInWord(chosenWord string) []string {
 	return hiddenWord
 }
 
-func checkUserLetterGuess(letterArray []string, userLetterGuess string, hiddenWord []string) (string, []string) {
+func checkUserLetterGuess(chosenWordSplit []string, userLetterGuess string, hiddenWord []string) (string, []string) {
 	isCorrect := "incorrect"
-	for i, letter := range letterArray {
+	for i, letter := range chosenWordSplit {
 
 		if userLetterGuess == letter {
 			hiddenWord[i] = userLetterGuess
@@ -137,4 +126,14 @@ func askUser(prompt string) string {
 	}
 
 	return scanner.Text()
+}
+
+func handleGameResult(remainingGuesses int, chosenWord string, found bool) {
+	if !found {
+		fmt.Println("You lost! The word was", chosenWord)
+	} else {
+
+		fmt.Println("Congrats! You Win!")
+
+	}
 }
