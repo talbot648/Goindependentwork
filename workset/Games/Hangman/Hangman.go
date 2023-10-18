@@ -2,7 +2,9 @@ package main
 
 import (
 	"bufio"
+	"encoding/csv"
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"strings"
@@ -62,10 +64,18 @@ func playGame(chosenWordSplit []string, hiddenWord []string, chosenWord string) 
 }
 
 func getWord() string {
-	words := []string{"child", "dog", "animal", "help"}
-	arrayLength := len(words)
-	indexNumber := rand.Intn(arrayLength)
-	chosenWord := words[indexNumber]
+	file, err := os.Open("hangmanWords.csv")
+	if err != nil {
+		log.Fatal("Error reading file!")
+	}
+	reader := csv.NewReader(file)
+	records, err := reader.ReadAll()
+	if err != nil {
+		fmt.Println("Error reading records")
+	}
+
+	indexNumber := rand.Intn(len(records))
+	chosenWord := records[indexNumber][0]
 
 	return chosenWord
 }
@@ -113,6 +123,16 @@ func checkUserWordGuess(userWordGuess string, chosenWord string, found bool) boo
 
 }
 
+func handleGameResult(remainingGuesses int, chosenWord string, found bool) {
+	if !found {
+		fmt.Println("You lost! The word was", chosenWord)
+	} else {
+
+		fmt.Println("Congrats! You Win!")
+
+	}
+}
+
 func askUser(prompt string) string {
 	fmt.Println(prompt)
 	fmt.Print("> ")
@@ -128,12 +148,11 @@ func askUser(prompt string) string {
 	return scanner.Text()
 }
 
-func handleGameResult(remainingGuesses int, chosenWord string, found bool) {
-	if !found {
-		fmt.Println("You lost! The word was", chosenWord)
-	} else {
+/*func getWordFromArray()string{
+	words := []string{"child", "dog", "animal", "help"}
+	arrayLength := len(words)
+	indexNumber := rand.Intn(arrayLength)
+	chosenWord := words[indexNumber]
 
-		fmt.Println("Congrats! You Win!")
-
-	}
-}
+	return chosenWord
+}*/

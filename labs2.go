@@ -78,11 +78,11 @@ func numbersGreaterThanTen(items []int) {
 func totalOfAllNegativeNumbers(items []int) {
 	NegativeNumbersTotal := 0
 
-	for _, items := range items {
+	for _, item := range items {
 
-		if items < 0 {
+		if item < 0 {
 
-			NegativeNumbersTotal = NegativeNumbersTotal + items
+			NegativeNumbersTotal = NegativeNumbersTotal + item
 		}
 	}
 	fmt.Println("The total of all negative numbers in the array are", NegativeNumbersTotal)
