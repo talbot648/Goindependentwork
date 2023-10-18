@@ -39,6 +39,7 @@ func playGame(letterArray []string, hiddenWord []string, chosenWord string) {
 			userLetterGuess := askUser("Guess a letter in the word")
 			isCorrect, hiddenWord := checkUserLetterGuess(letterArray, userLetterGuess, hiddenWord)
 			found = checkHiddenWord(hiddenWord, chosenWord, found)
+
 			if found {
 				remainingGuesses = 0
 			}
@@ -89,16 +90,16 @@ func printLettersInWord(chosenWord string) []string {
 }
 
 func checkUserLetterGuess(letterArray []string, userLetterGuess string, hiddenWord []string) (string, []string) {
-
+	isCorrect := "incorrect"
 	for i, letter := range letterArray {
 
 		if userLetterGuess == letter {
 			hiddenWord[i] = userLetterGuess
-			return "correct", hiddenWord
+			isCorrect = "correct"
 		}
 
 	}
-	return "incorrect", hiddenWord
+	return isCorrect, hiddenWord
 
 }
 
