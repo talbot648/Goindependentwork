@@ -27,6 +27,7 @@ func main() {
 	for i := 0; i < totalInt; i++ {
 		userChoice := askUser("What is your Choice? ")
 		opponentChoice := getOppnentsChoice()
+
 		result := getRoundWinner(userChoice, opponentChoice)
 		userScore, opponentScore = addScore(userScore, opponentScore, result)
 
@@ -34,14 +35,9 @@ func main() {
 		fmt.Println("The scores are", userScore, "-", opponentScore)
 
 	}
-	fmt.Println("That is the end of the game!")
-	if userScore > opponentScore {
-		fmt.Println("You win!")
-	} else if userScore < opponentScore {
-		fmt.Println("Opponent wins")
-	} else {
-		fmt.Println("Its a draw")
-	}
+	matchResult := endGane(userScore, opponentScore)
+	fmt.Println(matchResult)
+
 }
 
 func getOppnentsChoice() string {
@@ -79,6 +75,17 @@ func addScore(userScore int, opponentScore int, result string) (int, int) {
 		opponentScore++
 	}
 	return userScore, opponentScore
+}
+
+func endGane(userScore int, opponentScore int) string {
+	fmt.Println("That is the end of the game!")
+	if userScore > opponentScore {
+		return "You win!"
+	} else if userScore < opponentScore {
+		return "Opponent wins"
+	} else {
+		return "Its a draw"
+	}
 }
 
 func askUser(prompt string) string {

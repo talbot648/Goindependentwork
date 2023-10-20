@@ -10,6 +10,9 @@ import (
 	"strings"
 )
 
+//check if user has already guessed that letter
+// make function for i in range user guesses, if guess equals appended array of user guesses, tell user to have another go
+
 func main() {
 
 	chosenWord := getWord()
