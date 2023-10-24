@@ -26,19 +26,29 @@ func main() {
 }
 
 func playGame(chosenWordSplit []string, hiddenWord []string, chosenWord string) {
-	found := false
+	var userGuesses []string
+	isWordFound := false
 	remainingGuesses := 10
-	for remainingGuesses >= 1 {
+	for remainingGuesses > 0 {
 
 		guessWordOrLetter := askUser(" Press 1 to guess a letter. Press 2 to guess the word")
 
 		if guessWordOrLetter == "1" {
-
+			fmt.Println("The current letters you have guessed are:", userGuesses)
 			userLetterGuess := askUser("Guess a letter in the word")
-			isCorrect, hiddenWord := checkUserLetterGuess(chosenWordSplit, userLetterGuess, hiddenWord)
-			found = checkHiddenWord(hiddenWord, chosenWord, found)
 
-			if found {
+			duplicateGuess := checkForDuplicateGuess(userLetterGuess, userGuesses)
+
+			if duplicateGuess {
+				fmt.Println("You already guessed this letter, input another letter")
+				continue
+			}
+			userGuesses = storeGuesses(userLetterGuess, userGuesses)
+
+			isCorrect, hiddenWord := checkUserLetterGuess(chosenWordSplit, userLetterGuess, hiddenWord)
+			isWordFound = checkHiddenWord(hiddenWord, chosenWord, isWordFound)
+
+			if isWordFound {
 				remainingGuesses = 0
 			}
 
@@ -54,20 +64,21 @@ func playGame(chosenWordSplit []string, hiddenWord []string, chosenWord string) 
 		} else if guessWordOrLetter == "2" {
 
 			userWordGuess := askUser("Guess the word")
-			found = checkUserWordGuess(userWordGuess, chosenWord, found)
+			isWordFound = checkUserWordGuess(userWordGuess, chosenWord, isWordFound)
 			remainingGuesses = 0
 
 		} else {
 			fmt.Println("Enter a valid input")
 		}
 		if remainingGuesses == 0 {
-			handleGameResult(remainingGuesses, chosenWord, found)
+			handleGameResult(remainingGuesses, chosenWord, isWordFound)
 		}
 	}
 }
 
 func getWord() string {
 	file, err := os.Open("hangmanWords.csv")
+
 	if err != nil {
 		log.Fatal("Error reading file!")
 	}
@@ -89,6 +100,23 @@ func printLettersInWord(chosenWord string) []string {
 		hiddenWord[i] = "_"
 	}
 	return hiddenWord
+}
+
+func storeGuesses(userLetterGuess string, userGuesses []string) []string {
+	userGuesses = append(userGuesses, userLetterGuess)
+	return userGuesses
+}
+
+func checkForDuplicateGuess(userLetterGuess string, userGuesses []string) bool {
+	duplicateGuess := false
+	for i := range userGuesses {
+		if userLetterGuess == userGuesses[i] {
+			duplicateGuess = true
+			return duplicateGuess
+
+		}
+	}
+	return duplicateGuess
 }
 
 func checkUserLetterGuess(chosenWordSplit []string, userLetterGuess string, hiddenWord []string) (string, []string) {
